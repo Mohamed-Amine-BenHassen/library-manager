@@ -20,9 +20,30 @@ public class LoanRepository {
         }
         catch (SQLException e) {
             System.out.println("Error loaning book: " + e.getMessage());
+        }}
+    public void markReturned(int bookId, String returnedOn){
+        String sql = "UPDATE loans SET returned_on = ? WHERE book_id = ? AND returned_on IS NULL";
+            try(Connection connection = DatabaseManager.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+                stmt.setString(1, returnedOn);
+                stmt.setInt(2, bookId);
+                stmt.executeUpdate();
+                System.out.println("Book marked as returned on : " + returnedOn);
+
+            } catch (SQLException e) {
+                System.out.println("Error marking book as returned: " + e.getMessage());
+            }
         }
-    }
+
+
+        }
 
 
 
-}
+
+
+
+
+
+

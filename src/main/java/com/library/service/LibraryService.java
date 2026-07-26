@@ -33,7 +33,27 @@ public class LibraryService {
 
         // Check if the book is available, then mark it as borrowed and associate it with the member
 
-    }}
+    }
+    public void returnBook(int bookId) {
+        Book book = bookRepository.getBookById(bookId);
+        if (book == null) {
+            System.out.println("Book not found.");
+            return;
+        }
+        if (book.isAvailable()) {
+            System.out.println("Book is already marked as available.");
+            return;
+        }
+        String returnedOn = LocalDate.now().toString();
+        loanRepository.markReturned(bookId, returnedOn);
+        bookRepository.setAvailability(bookId, true);
+        System.out.println("Book returned successfully.");
+
+    }
+
+
+}
+
 
 
 
