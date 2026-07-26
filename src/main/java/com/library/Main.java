@@ -24,5 +24,10 @@ public class Main {
         LibraryService libraryService = new LibraryService();
         libraryService.borrowBook(1, 1);
         libraryService.borrowBook(1, 1);
+
+
+        libraryService.borrowBook(1, 1);   // borrow it
+        libraryService.returnBook(1);      // return it
+        libraryService.borrowBook(1, 1);
     }
 }
