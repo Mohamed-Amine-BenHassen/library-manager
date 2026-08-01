@@ -22,7 +22,7 @@ public class MemberRepository {
         catch (SQLException e) {
         System.out.println("Error adding member: " + e.getMessage());
     }}
-    public List<Member> getAllMemebers() {
+    public List<Member> getAllMembers() {
         List<Member> members = new ArrayList<>();
         String sql = "SELECT id, name, email FROM members";
 
@@ -42,6 +42,22 @@ public class MemberRepository {
             }
             return members;
 
+        }
+        public Member getMemberById(int id) {
+            String sql = "SELECT id, name, email FROM members WHERE id = ?";
+            try (Connection connection = DatabaseManager.getConnection();
+                 PreparedStatement stmt = connection.prepareStatement(sql)) {
+                stmt.setInt(1, id);
+                ResultSet rs = stmt.executeQuery();
+                if (rs.next()) {
+                    String name = rs.getString("name");
+                    String email = rs.getString("email");
+                    return new Member(id, name, email);
+                }
+            } catch (SQLException e) {
+                System.out.println("Error retrieving member by ID: " + e.getMessage());
+            }
+            return null;
         }
 
 

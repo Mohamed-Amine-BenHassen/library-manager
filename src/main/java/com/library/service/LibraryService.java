@@ -1,6 +1,7 @@
 package com.library.service;
 
 import com.library.model.Book;
+import com.library.model.Member;
 import com.library.repository.BookRepository;
 import com.library.repository.LoanRepository;
 import com.library.repository.MemberRepository;
@@ -11,12 +12,16 @@ public class LibraryService {
     private final MemberRepository memberRepository = new MemberRepository();
     private final LoanRepository loanRepository = new LoanRepository();
     public void borrowBook(int bookId, int memberId) {
-        // Code to borrow a book
+
         Book book = bookRepository.getBookById(bookId);
         if (book == null) {
             System.out.println("Book not found.");
         return;}
-
+        Member member = memberRepository.getMemberById(memberId);
+        if (member == null) {
+            System.out.println("Member not found.");
+            return;
+        }
 
 
         if (!book.isAvailable()) {
@@ -31,7 +36,7 @@ public class LibraryService {
 
 
 
-        // Check if the book is available, then mark it as borrowed and associate it with the member
+
 
     }
     public void returnBook(int bookId) {
