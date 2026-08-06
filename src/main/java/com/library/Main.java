@@ -4,6 +4,7 @@ import com.library.db.DatabaseManager;
 import com.library.model.Book;
 import com.library.model.Member;
 import com.library.repository.BookRepository;
+import com.library.repository.LoanRepository;
 import com.library.repository.MemberRepository;
 import com.library.service.LibraryService;
 
@@ -16,6 +17,8 @@ public class Main {
        BookRepository bookRepository = new BookRepository();
        LibraryService libraryService = new LibraryService();
        MemberRepository memberRepository = new MemberRepository();
+       LoanRepository loanRepository = new LoanRepository();
+
        while (true) {
         System.out.println("Library Management System");
         System.out.println("1. Add Book");
@@ -26,6 +29,7 @@ public class Main {
         System.out.println("6. Add Member");
         System.out.println("7. get Book by ID");
         System.out.println("8. get Member by ID");
+        System.out.println("9. List Active Loans");
         System.out.println("0. Exit");
         System.out.print("Enter your choice: ");
         int choice = scanner.nextInt();
@@ -94,6 +98,9 @@ public class Main {
            } else {
                System.out.println("Member not found.");
            }
+          break;
+      case 9:
+          loanRepository.getActiveLoans().forEach(System.out::println);
           break;
       default:
        System.out.println("Invalid choice");
